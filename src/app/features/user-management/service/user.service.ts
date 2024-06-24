@@ -69,4 +69,19 @@ export class UserService {
   downloadPdf(id: any): void {
     this.downloadPdfApi(id);
   }
+
+
+  generatedPdf(id:any): void {
+    const apiUrl = `http://localhost:3000/pdf/retrieve/${id}`;
+
+    this._apiHttpService.get(apiUrl, { responseType: 'blob' }).subscribe((data) => {
+      const blob = new Blob([data], { type: 'application/pdf' });
+      const url = window.URL.createObjectURL(blob);
+      window.open(url);
+    });
+  }
+
+  viewPdf(id:any): void {
+    this.generatedPdf(id);
+  }
   }

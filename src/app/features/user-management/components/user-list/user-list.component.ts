@@ -45,6 +45,15 @@ export class UserListComponent {
 
   }
 
+  async viewPdf(userid:any){
+    this.ngxService.start();
+  await  this.userService.viewPdf(userid);
+  this._sharedService.ToastPopup('', 'Pdf Opened successfully', 'success');
+
+    this.ngxService.stop();
+
+  }
+
   generatePdf(userid:any){
     this.ngxService.start();
     this.userService.generatePdfApi(userid).subscribe((res:any)=>{
