@@ -3,7 +3,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { CreateUserComponent } from './components/create-user/create-user.component';
 import { UserListComponent } from './components/user-list/user-list.component';
 import { UserMainComponent } from './components/user-main/user-main.component';
-import { AuthGuard } from 'src/app/core/guards/auth.guard';
 
 const routes: Routes = [
   {
@@ -12,6 +11,8 @@ const routes: Routes = [
     children: [
       { path: 'create-user', component: CreateUserComponent },
        {path: 'user-list', component: UserListComponent },
+       { path: 'edit-user/:id', component: CreateUserComponent },
+
     ]
   },
 ];

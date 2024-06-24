@@ -6,7 +6,6 @@ import { QueryStringParameters } from '../../shared/classes/query-string-paramet
 
 // Application Constants
 import { Constants } from 'src/app/config/constant';
-import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class ApiEndpointsService {
@@ -94,24 +93,30 @@ export class ApiEndpointsService {
     return urlBuilder.toString();
   }
 
+
   public createUserEndpoint() {
-    return this.createUrl(this._constants.API_ENDPOINT_CREATE_USER);
+    return this.createUrl(this._constants.createUserEndpoint);
   }
-
-  public updateUserEndpoint() {
-    return this.createUrl(this._constants.API_ENDPOINT_UPDATE_USER);
+  public updateUserEndpoint(id:any) {
+    return this.createUrl(this._constants.updateUserEndpoint + '/' + id);
   }
-
+  
   public getUserListEndpoint() {
-    return this.createUrl(this._constants.API_ENDPOINT_GET_USER_LIST);
+    return this.createUrl(this._constants.getUserListEndpoint);
   }
-
-  public getUserByIdEndpoint() {
-    return this.createUrl(this._constants.API_ENDPOINT_GET_USER_BY_ID);
+  public getUserByIdEndpoint(id:any){
+    return this.createUrl(this._constants.getUserByIdEndpoint+ '/' + id);
   }
-
-  public getDeleteUserEndpoint() {
-    return this.createUrl(this._constants.API_ENDPOINT_DELETE_USER);
+  
+  public DeleteUserEndpoint(id:any){
+    return this.createUrl(this._constants.DeleteUserEndpoint+ '/' + id);
+  }
+  public retrievePdfEndpoint(id:any){
+    return this.createUrl(this._constants.retrievePdfEndpoint+ '/' + id);
+  }
+  
+  public generatePdfEndpoint(id:any) {
+    return this.createUrl(this._constants.generatePdfEndpoint+ '/' + id);
   }
   
 }

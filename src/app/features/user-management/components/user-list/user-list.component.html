@@ -7,25 +7,61 @@
                     <th>S No.</th>
                     <th>Username</th>
                     <th>Email</th>
-                    <th>Department</th>
+                    <th>Phone Number</th>
+                    <th>Address</th>
+
                     <th>Action</th>
                 </tr>
             </thead>
             <tbody>
              
             
-                <tr>
-                    <td>1</td>
-                    <td>Monti</td>
-                    <td>Monti@gmail.com</td>
-                    <td>Engineering</td>
-                    <td><button>View</button>
-                    &nbsp;&nbsp;&nbsp;&nbsp;<button>Edit</button>
+                <tr *ngFor="let user of userList;let i = index;">
+                    <td>{{i+1}}</td>
+                    <td>{{user.name}}</td>
+                    <td>{{user.email}}</td>
+                    <td>{{user.phoneNumber}}</td>
+                    <td>{{user.address}}</td>
+                <td>   
+                  <button  (click)="editUser(user)" style="cursor: pointer;">Edit</button>
 
-                    &nbsp;&nbsp;&nbsp;&nbsp;<button>Delete</button>
-                    &nbsp;&nbsp;&nbsp;&nbsp;<button>Download</button></td>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<button (click)="openDeleteModal(user.id)" style="cursor: pointer;">Delete</button>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<button (click)="generatePdf(user.id)" style="cursor: pointer;">Generate Pdf</button>
+
+                    &nbsp;&nbsp;&nbsp;&nbsp;<button (click)="downloadPdf(user.id)" style="cursor: pointer;">Download Pdf</button>
+                      &nbsp;&nbsp;&nbsp;&nbsp;<button style="cursor: pointer;">View Pdf</button></td>
+
                 </tr>
               
             </tbody>
         </table>
     </div>
+
+    
+<!-- Delete user modal -->
+<div *ngIf="modalNumber == 2" class="modal" [ngStyle]="{ display: display }" id="staticBackdrop"
+data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
+aria-hidden="true">
+<div class="modal-dialog" >
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">
+                <i class="proimg bi-person-circle"></i> Delete User?
+            </h5>
+            <button type="button" class="btn-close" (click)="closeModal()"></button>&nbsp;&nbsp;&nbsp;&nbsp;
+        </div>
+
+        <div class="card-body mt-4">
+
+            <p class="p-3"> Are you sure you want to Delete User?</p>
+
+        </div>
+
+        <div class="modal-footer">
+            <a class="btn btn-primary mt-2 mb-2" (click)="deleteUser()">Yes</a>&nbsp;&nbsp;&nbsp;
+            <a class="btn btn-secondary mt-2 mb-2" (click)="closeModal()">No</a>&nbsp;&nbsp;&nbsp;
+            <br>
+        </div>
+    </div>
+</div>
+</div>

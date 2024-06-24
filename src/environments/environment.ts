@@ -1,8 +1,8 @@
 export const environment = {
   production: false,
-  apiUrl:'https://mailblitzapiuat.cylsys.com',
+  apiUrl:'http://localhost:3000',
   apiMockUrl:'/api',
-  domainUrl:'http://localhost:4350/',
+  domainUrl:'http://localhost:3000',
   app_env: 'development',
 
 };

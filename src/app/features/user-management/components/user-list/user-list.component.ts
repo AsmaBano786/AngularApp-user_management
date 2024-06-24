@@ -29,16 +29,36 @@ export class UserListComponent {
     this.userService.getUserListApi().subscribe((res:any)=>{
       console.log("Res",res);
       this.ngxService.stop();
-      this.userList = res.data;
+      this.userList = res;
       
     },(err:any)=>{
       console.log("Err",err);
       this.ngxService.stop();
     })
   }
+ async downloadPdf(userid:any){
+    this.ngxService.start();
+  await  this.userService.downloadPdf(userid);
+  this._sharedService.ToastPopup('', 'Pdf downloaded successfully', 'success');
 
+    this.ngxService.stop();
+
+  }
+
+  generatePdf(userid:any){
+    this.ngxService.start();
+    this.userService.generatePdfApi(userid).subscribe((res:any)=>{
+      this.ngxService.stop();
+      this._sharedService.ToastPopup('', res.message, 'success');
+      
+    },(err:any)=>{
+      console.log("Err",err);
+      this.ngxService.stop();
+    })
+  
+  }
   editUser(data:any){
-    this._router.navigate(['/edit-user/' + data.userId])
+    this._router.navigate(['/edit-user/' + data.id])
   }
 
   openDeleteModal(data:any){
@@ -47,26 +67,18 @@ export class UserListComponent {
     this.userId = data;
   }
 
-  openUnlinkMailboxModal(data:any){
-    this.modalNumber = 1;
-    this.display = 'block'
-    this.userId = data;
-  }
+  
 
   deleteUser(){
-    
-    let body = {
-      "userId": this.userId
-    }
+   
 
     this.ngxService.start();
 
-    console.log("Body",body);
 
-    this.userService.deleteUserListApi(body).subscribe((res:any)=>{
+    this.userService.deleteUserListApi(this.userId).subscribe((res:any)=>{
       console.log("Res",res);
       this.ngxService.stop();
-      this.userList = res.data;
+      this.userList = res;
       this.display = 'none';
       this._sharedService.ToastPopup(res.message,'','success');
       this.getUserList();

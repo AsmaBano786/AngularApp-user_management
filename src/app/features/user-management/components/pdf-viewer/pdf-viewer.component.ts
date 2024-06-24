@@ -6,6 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./pdf-viewer.component.css']
 })
 export class PdfViewerComponent {
-  pdfSrc = '/assets/table.pdf';
 
 }

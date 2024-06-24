@@ -22,8 +22,8 @@ export class UserService {
     return this._apiHttpService.post(this._apiEndpointsService.createUserEndpoint(),body)
   }
 
-  updateUserApi(body : any){
-    return this._apiHttpService.post(this._apiEndpointsService.updateUserEndpoint(),body)
+  updateUserApi(id : any,body:any){
+    return this._apiHttpService.put(this._apiEndpointsService.updateUserEndpoint(id),body)
   }
 
   getUserListApi(){
@@ -32,22 +32,41 @@ export class UserService {
   
 
 
-  getUserByIdApi(body:any){
-    return this._apiHttpService.post(this._apiEndpointsService.getUserByIdEndpoint(),body)
+  getUserByIdApi(id:any){
+    return this._apiHttpService.get(this._apiEndpointsService.getUserByIdEndpoint(id))
   }
 
-  deleteUserListApi(body:any){
-    return this._apiHttpService.post(this._apiEndpointsService.getDeleteUserEndpoint(),body)
+  deleteUserListApi(id:any){
+    return this._apiHttpService.delete(this._apiEndpointsService.DeleteUserEndpoint(id))
   }
-  generatePdf(): void {
-    this._http.get('/api/pdf', { responseType: 'blob' }).subscribe((data) => {
+
+  RetrievePdfApi(id:any){
+    return this._apiHttpService.get(this._apiEndpointsService.retrievePdfEndpoint(id))
+  }
+
+  generatePdfApi(id:any){
+    return this._apiHttpService.get(this._apiEndpointsService.generatePdfEndpoint(id))
+  }
+  downloadPdfApi(id: any): void {
+    const apiUrl = `http://localhost:3000/pdf/retrieve/${id}`;
+  
+    this._apiHttpService.get(apiUrl, { responseType: 'blob' }).subscribe((data) => {
       const blob = new Blob([data], { type: 'application/pdf' });
       const url = window.URL.createObjectURL(blob);
-      window.open(url);
+      
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `${id}.pdf`; // Set the desired file name here
+      document.body.appendChild(a);
+      a.click();
+      
+      // Clean up
+      document.body.removeChild(a);
+      window.URL.revokeObjectURL(url);
     });
   }
-
-  downloadPdf(): void {
-    this.generatePdf();
+  
+  downloadPdf(id: any): void {
+    this.downloadPdfApi(id);
   }
-}
+  }

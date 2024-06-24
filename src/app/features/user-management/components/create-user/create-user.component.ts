@@ -60,20 +60,17 @@ console.log("hi");
 
   getUserById() {
 
-    let body = {
-      "userId": this.user_id
-    }
 
     this.ngxService.start();
-    this.userService.getUserByIdApi(body).subscribe((res: any) => {
-      console.log("res", res.data);
+    this.userService.getUserByIdApi(this.user_id).subscribe((res: any) => {
+      console.log("res", res);
       this.ngxService.stop();
-      this.userData = res.data[0];
+      this.userData = res;
       this.userForm.patchValue({
-        user_name : this.userData.username,
-        email : this.userData.userEmail,
-        role_id : this.userData.roleId,
-        designation_id : this.userData.designationId
+        user_name : this.userData.name,
+        email : this.userData.email,
+        phone_number : this.userData.phoneNumber,
+        address : this.userData.address
       });
 
     },(err)=>{
@@ -89,21 +86,20 @@ console.log("hi");
 
     if(this.user_id) {
       let body = {
-        "userId" : this.user_id,
-        "Name": this.userForm.value.user_name,
-        "Username": this.userForm.value.user_name,
-        "Email": this.userForm.value.email,
-        "designationId": this.userForm.value.designation_id,
-        "roleId": this.userForm.value.role_id,
+        "name": this.userForm.value.user_name,
+        "email": this.userForm.value.email,
+        "phoneNumber": this.userForm.value.phone_number,
+        "address": this.userForm.value.address,
       }
       console.log("Update")
+
       this.ngxService.start();
-      this.userService.updateUserApi(body).subscribe((res: any) => {
+      this.userService.updateUserApi(this.user_id,body).subscribe((res: any) => {
         console.log("Res", res);
         this.ngxService.stop();
   
         this._sharedService.ToastPopup('', res.message, 'success');
-        this._router.navigate(['/mail-list']);
+        this._router.navigate(['/user-list']);
       }, (err) => {
         console.log("Err", err)
         this.ngxService.stop();
@@ -111,12 +107,10 @@ console.log("hi");
     }
     else {
       let body = {
-        "Name": this.userForm.value.user_name,
-        "Username": this.userForm.value.user_name,
-        "Email": this.userForm.value.email,
-        "Password": this.userForm.value.password,
-        "designationId": 1,
-        "roleId": this.userForm.value.role_id,
+        "name": this.userForm.value.user_name,
+        "email": this.userForm.value.email,
+        "phoneNumber": this.userForm.value.phone_number,
+        "address": this.userForm.value.address,
       }
       console.log("Create")
       this.ngxService.start();
