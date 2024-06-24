@@ -1,0 +1,12 @@
+<div class="pagination">
+    <button (click)="goToPage(currentPage - 1)" class="btn-sm btn-info1" [disabled]="currentPage === 1"> Previous </button>
+    <span> &nbsp;{{ currentPage }} / {{ totalPages }} &nbsp;</span>
+    <button (click)="goToPage(currentPage + 1)"  class="btn-sm btn-info1" [disabled]="currentPage === totalPages"> Next </button>
+    &nbsp;
+    <!-- <span>Show:</span> -->
+    <!-- <select class="form-control form-control-sm w-auto" [(ngModel)]="pageSize" (change)="onPageSizeChange()">
+      <option *ngFor="let size of pageSizes" [value]="size">{{ size }}</option>
+    </select> -->
+  </div>
+
+

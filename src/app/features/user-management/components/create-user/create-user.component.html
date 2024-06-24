@@ -1,0 +1,123 @@
+<main>
+    <div class="container">
+      <section class="section register  d-flex flex-column align-items-center justify-content-center py-4" style="margin-top: 30px;">
+        <div class="container">
+          <div class="row justify-content-center">
+            <div
+              class="mt-5 col-md-6 d-flex flex-column align-items-center justify-content-center">
+
+              <div class="card">
+                <div class="card-body">
+                  <div class="pt-1">
+                    <h5 class="card-title text-center fs-4" *ngIf="!user_id">
+                      Add User
+                    </h5>
+                    <h5 class="card-title text-center fs-4" *ngIf="user_id">
+                      Update User
+                    </h5>
+                    <p class="text-center small" *ngIf="!user_id">
+                   
+                    </p>
+                    <p class="text-center small" *ngIf="user_id">
+                      Enter your User details to Update User
+                    </p>
+                  </div><hr>
+
+                  <form class="row g-3 needs-validation" novalidate [formGroup]="userForm" (ngSubmit)="submit()">
+                    <div class="col-12">
+                      <label for="yourName" class="form-label"
+                        >Name</label
+                      >
+                      <input
+                        type="text"
+                        name="name"
+                        class="form-control"
+                        id="yourName"
+                        placeholder="Enter your name"
+                        formControlName="user_name"
+                      />
+                      <div *ngIf="getcontrol('user_name')?.errors && getcontrol('user_name')?.touched">
+                        <small class="text-danger" *ngIf="getcontrol('user_name')?.errors?.['required']">Name is Required.</small>
+                        <small class="text-danger" *ngIf="getcontrol('user_name')?.errors?.['minlength']">Name must be at least 3 characters long.</small>
+                       </div>
+                    </div>
+
+                    <div class="col-12">
+                      <label for="yourEmail" class="form-label"
+                        >Email</label
+                      >
+                      <input
+                        type="email"
+                        name="email"
+                        class="form-control"
+                        id="yourEmail"
+                        placeholder="Enter your email"
+                        formControlName="email"
+                      />
+                      <div *ngIf="getcontrol('email')?.errors && getcontrol('email')?.touched">
+                        <small class="text-danger" *ngIf="getcontrol('email')?.errors?.['required']">Email is Required.</small>
+                        <small class="text-danger" *ngIf="getcontrol('email')?.errors?.['pattern']">Please insert a valid email address.</small>
+                       </div>
+                    </div>
+                  
+                    <div class="col-12">
+                      <label for="yourUsername" class="form-label"
+                        >Phone Number</label
+                      >
+                      <input
+                      type="text"
+                      name="phone_number"
+                      class="form-control"
+                      minlength="10"
+                      maxlength="15"
+                      (keypress)="keyPressNumbers($event)"
+                      id="phone_number"
+                      placeholder="Enter your phone number"
+                      formControlName="phone_number"
+                    />
+                  
+                        <div *ngIf="getcontrol('phone_number')?.errors && getcontrol('phone_number')?.touched">
+                          <small class="text-danger" *ngIf="getcontrol('phone_number')?.errors?.['required']">Phone number is Required.</small>
+                          <small class="text-danger" *ngIf="getcontrol('phone_number')?.errors?.['pattern']">Please insert only digits..</small>
+                          <small class="text-danger" *ngIf="getcontrol('phone_number')?.errors?.['minlength']">Phone number atleave have 10 digits.</small>
+
+                        </div>
+                    </div>
+
+                    <div class="col-12">
+                      <label for="yourUsername" class="form-label"
+                        >Address</label
+                      >
+                      <textarea
+                      type="text"
+                      name="address"
+                      class="form-control"
+                      id="address"
+                      placeholder="Enter your address"
+                      formControlName="address"
+                    ></textarea>
+                        <div *ngIf="getcontrol('address')?.errors && getcontrol('address')?.touched">
+                          <small class="text-danger" *ngIf="getcontrol('address')?.errors?.['required']">Address is Required.</small>
+                          <small class="text-danger" *ngIf="getcontrol('address')?.errors?.['minlength']">Address must be correct.</small>
+
+                        </div>
+                    </div>
+
+                  
+                   
+                    <div class="col-12">
+                      <div class="modal-footer">
+                          <button  class="float-end" style="background-color: blue;" [disabled]="userForm.invalid" *ngIf="!user_id">Add</button>
+                          <button  class="btn btn-primary float-end" [disabled]="userForm.invalid" *ngIf="user_id">Update</button>
+                          <button  class="float-end m-2"  routerLink="/user-list">Close</button>                           
+                        </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>

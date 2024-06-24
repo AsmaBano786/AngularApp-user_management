@@ -1,0 +1,31 @@
+
+body {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh; /* Set minimum height to full viewport height */
+    position: relative; /* Set body position to relative */
+}
+
+
+.footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #f8f9fa;
+    padding: 20px;
+    text-align: center;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    .footer {
+        font-size: 14px; /* Adjust font size for smaller screens */
+        padding: 15px; /* Reduce padding for smaller screens */
+    }
+}
+
+@media (max-width: 576px) {
+    .footer {
+        font-size: 12px; /* Further reduce font size for even smaller screens */
+    }
+}
